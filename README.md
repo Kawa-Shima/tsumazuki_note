@@ -286,10 +286,13 @@
  
 学習中の技術であるため、調査や実装に時間がかかる可能性があります。 
  
- 
 2. **Issueの見積もりが難しい可能性** 
  
 理解が十分でない技術は、実装にどれくらい時間がかかるかを事前に判断しにくいです。 
+
+## 11. 画面遷移図
+
+https://www.figma.com/design/iLLyhdbLIGSgPLEcKHNZVn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3%EF%BC%88tsumazuki_note%EF%BC%89?node-id=2001-349&t=aHczlsRS5tKYihVS-1
  
 
  

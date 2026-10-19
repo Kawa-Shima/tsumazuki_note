@@ -293,6 +293,11 @@
 ## 11. 画面遷移図
 
 https://www.figma.com/design/iLLyhdbLIGSgPLEcKHNZVn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3%EF%BC%88tsumazuki_note%EF%BC%89?node-id=2001-349&t=aHczlsRS5tKYihVS-1
+
+## 12. ER図
+
+https://gyazo.com/ea49d4908fbda17dbfd8cce62c19ccfc
+
  
 
  

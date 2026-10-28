@@ -6,6 +6,7 @@ RUN apt-get update -qq && \
       git \
       libpq-dev \
       postgresql-client \
+      libvips \
       libyaml-dev && \
     rm -rf /var/lib/apt/lists/*
 

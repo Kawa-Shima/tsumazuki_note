@@ -32,6 +32,7 @@
     <% end %>
     <% if user_signed_in? %>
       <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <%= link_to "マイページ", mypage_show_path %>
     <% end %>
     <%= yield %>
   </body>

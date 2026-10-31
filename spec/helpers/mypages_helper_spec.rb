@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe MypageHelper, type: :helper do
+RSpec.describe MypagesHelper, type: :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

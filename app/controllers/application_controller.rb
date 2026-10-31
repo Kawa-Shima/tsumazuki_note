@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    mypage_show_path
+    mypage_path
   end
 end

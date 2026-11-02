@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts, only: [ :new, :create ]
   resource :mypage, only: [ :show ]
   devise_for :users
   root "static_pages#top"

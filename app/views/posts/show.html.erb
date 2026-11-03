@@ -1,5 +1,6 @@
 <h1>つまずき詳細</h1>
-<p><%= @post.title%></p>
+<p><%= @post.title %></p>
 <p><%= @post.content %></p>
 <p><%= @post.date %></p>
 <p><%= @post.status %></p>
+<%= link_to "編集する", edit_post_path(@post) %>

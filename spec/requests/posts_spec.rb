@@ -7,4 +7,18 @@ RSpec.describe "Posts", type: :request do
       expect(response).to redirect_to(new_user_session_path)
     end
   end
+
+  describe "DELETE /posts/:id" do
+    it "他ユーザーの投稿を削除できない" do
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
+      post = FactoryBot.create(:post, user: user1)
+
+      sign_in user2
+      delete "/posts/#{post.id}"
+
+      expect(response).to have_http_status(404)
+      expect(Post.exists?(post.id)).to be true
+    end
+  end
 end

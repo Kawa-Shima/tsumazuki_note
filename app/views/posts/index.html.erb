@@ -1,0 +1,6 @@
+<h1>つまずき一覧</h1>
+<% @posts.each do |post| %>
+  <p><%= post.title %></p>
+  <p><%= post.date %></p>
+  <p><%= post.status %></p>
+<% end %>

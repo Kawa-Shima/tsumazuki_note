@@ -4,3 +4,4 @@
 <p><%= @post.date %></p>
 <p><%= @post.status %></p>
 <%= link_to "編集する", edit_post_path(@post) %>
+<%= button_to "削除する", post_path(@post), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } } %>

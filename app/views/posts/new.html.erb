@@ -10,5 +10,7 @@
     <%= f.text_area :content %>
     <%= f.label :date %>
     <%= f.date_field :date %>
+    <%= f.label :category %>
+    <%= f.select :category, Post.categories.keys.map { |category| [category.titleize, category] } %>
     <%= f.submit "投稿する" %>
 <% end %>

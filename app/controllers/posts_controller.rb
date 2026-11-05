@@ -23,6 +23,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = current_user.posts.find(params[:id])
+    @post.tag_names = @post.tags.pluck(:name).join(", ")
   end
 
   def update
@@ -42,6 +43,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :date, :category,)
+    params.require(:post).permit(:title, :content, :date, :category, :tag_names)
   end
 end

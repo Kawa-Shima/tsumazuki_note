@@ -13,5 +13,7 @@
     <%= f.date_field :date %>
     <%= f.label :category %>
     <%= f.select :category, Post.categories.keys.map { |category| [category.titleize, category] } %>
+    <%= f.label :tag_names %>
+    <%= f.text_field :tag_names %>
     <%= f.submit "更新する" %>
 <% end %>

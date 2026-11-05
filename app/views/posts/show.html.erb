@@ -6,6 +6,7 @@
 <% @post.tags.each do |tag| %>
   <p><%= tag.name %></p>
 <% end %>
-<p><%= @post.status %></p>
+<p><%= @post.unresolved? ? "未解決" : "解決済み" %></p>
+<%= button_to(@post.unresolved? ? "解決済みにする" : "未解決にする", post_path(@post), method: :patch, params: { post: { status: @post.unresolved? ? "resolved" : "unresolved" } } ) %>
 <%= link_to "編集する", edit_post_path(@post) %>
 <%= button_to "削除する", post_path(@post), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } } %>

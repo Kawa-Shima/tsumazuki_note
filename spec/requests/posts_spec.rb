@@ -21,4 +21,18 @@ RSpec.describe "Posts", type: :request do
       expect(Post.exists?(post.id)).to be true
     end
   end
+
+  describe "PATCH /posts/:id" do
+    it "他ユーザーが投稿のステータスを変更できない" do
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
+      post = FactoryBot.create(:post, user: user1, status: "unresolved")
+
+      sign_in user2
+      patch "/posts/#{post.id}", params: { post: { status: "resolved" } }
+
+      expect(response).to have_http_status(404)
+      expect(post.reload.status).to eq("unresolved")
+    end
+  end
 end

@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.build(post_params.except(:status))
     if @post.save
       redirect_to mypage_path, notice: "投稿が作成されました。"
     else
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
-      redirect_to mypage_path, notice: "投稿が更新されました。"
+      redirect_to post_path(@post), notice: "投稿が更新されました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,6 +43,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :content, :date, :category, :tag_names)
+    params.require(:post).permit(:title, :content, :date, :category, :tag_names, :status)
   end
 end

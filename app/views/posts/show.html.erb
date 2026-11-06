@@ -11,17 +11,11 @@
 <% @post.solutions.each do |solution| %>
   <p><%= solution.solution %></p>
   <p><%= solution.url %></p>
-<% end %>
-
-<%= form_with model: [@post,@solution] do |f| %>
-  <%= f.label :solution, "解決策" %>
-  <%= f.text_area :solution %>
-  <%= f.label :url, "参考URL" %>
-  <%= f.text_field :url %>
-  <%= f.submit "解決策を投稿する" %>
+  <%= link_to "編集する", edit_post_solution_path(@post, solution) %>
 <% end %>
 
 <p><%= @post.unresolved? ? "未解決" : "解決済み" %></p>
 <%= button_to(@post.unresolved? ? "解決済みにする" : "未解決にする", post_path(@post), method: :patch, params: { post: { status: @post.unresolved? ? "resolved" : "unresolved" } } ) %>
 <%= link_to "編集する", edit_post_path(@post) %>
+<%= link_to "解決策を投稿する", new_post_solution_path(@post) %>
 <%= button_to "削除する", post_path(@post), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } } %>

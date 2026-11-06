@@ -20,7 +20,6 @@ class PostsController < ApplicationController
 
   def show
     @post = current_user.posts.find(params[:id])
-    @solution = Solution.new
   end
 
   def edit

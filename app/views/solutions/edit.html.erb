@@ -7,3 +7,4 @@
   <%= f.text_field :url %>
   <%= f.submit "解決策を更新する" %>
 <% end %>
+<%= button_to "解決策を削除する", post_solution_path(@post, @solution), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } } %>

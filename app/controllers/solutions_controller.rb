@@ -32,6 +32,13 @@ class SolutionsController < ApplicationController
     end
   end
 
+  def destroy
+    @post = current_user.posts.find(params[:post_id])
+    @solution = @post.solutions.find(params[:id])
+    @solution.destroy
+    redirect_to post_path(@post), notice: "解決策が削除されました。"
+  end
+
   private
   def solution_params
     params.require(:solution).permit(:solution, :url)

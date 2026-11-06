@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+
   def new
     @post = current_user.posts.build
   end
@@ -19,6 +20,7 @@ class PostsController < ApplicationController
 
   def show
     @post = current_user.posts.find(params[:id])
+    @solution = Solution.new
   end
 
   def edit

@@ -31,4 +31,19 @@ RSpec.describe "Solutions", type: :request do
       expect(solution.url).to eq("https://example.com")
     end
   end
+
+  describe "DELETE /posts/:post_id/solutions/:id" do
+    it "他ユーザーの投稿の解決策を削除できない" do
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
+      post = FactoryBot.create(:post, user: user1)
+      solution = FactoryBot.create(:solution, post: post)
+
+      sign_in user2
+      delete "/posts/#{post.id}/solutions/#{solution.id}"
+
+      expect(response).to have_http_status(404)
+      expect(Solution.exists?(solution.id)).to be true
+    end
+  end
 end

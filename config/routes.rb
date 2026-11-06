@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :posts, only: [ :new, :create, :index, :show, :edit, :update, :destroy ] do
-    resources :solutions, only: [ :new, :create, :edit, :update ]
+    resources :solutions, only: [ :new, :create, :edit, :update, :destroy ]
   end
 
   resource :mypage, only: [ :show ]

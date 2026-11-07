@@ -18,4 +18,12 @@ class Post < ApplicationRecord
     end
     self.tags = tags
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title content]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
 end

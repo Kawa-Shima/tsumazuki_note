@@ -1,6 +1,19 @@
 <h1>つまずき一覧</h1>
-<% @posts.each do |post| %>
-  <p><%= link_to post.title, post_path(post) %></p>
-  <p><%= post.date %></p>
-  <p><%= post.status %></p>
+<%= search_form_for @q, url: posts_path do |f| %>
+  <%= f.label :title_i_cont, "タイトル" %>
+  <%= f.text_field :title_i_cont %>
+  <%= f.label :content_i_cont, "内容" %>
+  <%= f.text_field :content_i_cont %>
+  <%= f.submit "検索" %>
 <% end %>
+
+<% if @posts.empty? %>
+  <p>つまずきがありません。</p>
+<% else %>
+  <% @posts.each do |post| %>
+   <p><%= link_to post.title, post_path(post) %></p>
+   <p><%= post.date %></p>
+   <p><%= post.status %></p>
+  <% end %>
+<% end %>
+

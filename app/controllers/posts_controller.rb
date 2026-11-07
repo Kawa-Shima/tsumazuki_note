@@ -15,7 +15,8 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = current_user.posts
+    @q = current_user.posts.ransack(params[:q])
+    @posts = @q.result
   end
 
   def show

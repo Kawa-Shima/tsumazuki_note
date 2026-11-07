@@ -16,7 +16,13 @@ class PostsController < ApplicationController
 
   def index
     @q = current_user.posts.ransack(params[:q])
-    @posts = @q.result
+    @posts = @q.result(distinct: true)
+
+    @tag_names = Tag.joins(:posts)
+                    .where(posts: { user_id: current_user.id })
+                    .distinct
+                    .order(:name)
+                    .pluck(:name)
   end
 
   def show

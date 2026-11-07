@@ -24,6 +24,6 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    []
+    %w[tags]
   end
 end

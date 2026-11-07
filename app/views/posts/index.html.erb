@@ -4,8 +4,14 @@
   <%= f.text_field :title_i_cont %>
   <%= f.label :content_i_cont, "内容" %>
   <%= f.text_field :content_i_cont %>
+
+  <%= f.label :category_eq, "カテゴリ" %>
+  <%= f.select :category_eq, Post.categories.map { |name, value| [name.humanize, value] }, { include_blank: "すべて" } %>
+
   <%= f.submit "検索" %>
 <% end %>
+
+
 
 <% if @posts.empty? %>
   <p>つまずきがありません。</p>

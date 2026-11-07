@@ -20,7 +20,7 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[title content category]
+    %w[title content category status]
   end
 
   def self.ransackable_associations(_auth_object = nil)

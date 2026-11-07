@@ -11,6 +11,9 @@
   <%= f.label :tags_name_eq, "タグ" %>
   <%= f.select :tags_name_eq, @tag_names, { include_blank: "すべて" } %>
 
+  <%= f.label :status_eq, "ステータス" %>
+  <%= f.select :status_eq, [["未解決",0], ["解決済み",1]], { include_blank: "すべて" } %>
+
   <%= f.submit "検索" %>
 <% end %>
 

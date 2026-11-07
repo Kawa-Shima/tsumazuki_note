@@ -8,9 +8,11 @@
   <%= f.label :category_eq, "カテゴリ" %>
   <%= f.select :category_eq, Post.categories.map { |name, value| [name.humanize, value] }, { include_blank: "すべて" } %>
 
+  <%= f.label :tags_name_eq, "タグ" %>
+  <%= f.select :tags_name_eq, @tag_names, { include_blank: "すべて" } %>
+
   <%= f.submit "検索" %>
 <% end %>
-
 
 
 <% if @posts.empty? %>

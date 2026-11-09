@@ -323,6 +323,7 @@ GEM
       ffi (~> 1.12)
       logger
     securerandom (0.4.1)
+    simplecov (1.3.2)
     solid_cable (4.1.0)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -399,6 +400,7 @@ DEPENDENCIES
   ransack
   rspec-rails
   rubocop-rails-omakase
+  simplecov
   solid_cable
   solid_cache
   solid_queue

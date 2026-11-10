@@ -23,8 +23,8 @@
 <% else %>
   <% @posts.each do |post| %>
    <p><%= link_to post.title, post_path(post) %></p>
-   <p><%= post.date %></p>
-   <p><%= post.status %></p>
+   <p><%= l(post.date, format: :slash) if post.date.present? %></p>
+   <p><%= t("enums.post.status.#{post.status}") %></p>
   <% end %>
 <% end %>
 

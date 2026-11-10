@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    attributes:
+      post:
+        title: タイトル
+        content: 内容
+        date: 日付
+        category: カテゴリ
+        tag_names: タグ
+        status: 解決状況
+         
+      solution:
+        solution: 解決策
+        url: 参考URL
+      
+  enums:
+    post:
+      status:
+        unresolved: 未解決
+        resolved: 解決済み
+  date:
+    formats:
+      slash: "%Y/%m/%d"

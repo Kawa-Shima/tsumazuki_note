@@ -1,0 +1,10 @@
+<h1>解決方法の編集</h1>
+
+<%= form_with model: [@post,@solution] do |f| %>
+  <%= f.label :solution, "解決策" %>
+  <%= f.text_area :solution %>
+  <%= f.label :url, "参考URL" %>
+  <%= f.text_field :url %>
+  <%= f.submit "解決策を更新する" %>
+<% end %>
+<%= button_to "解決策を削除する", post_solution_path(@post, @solution), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } } %>

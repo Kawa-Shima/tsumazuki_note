@@ -1,9 +1,3 @@
 <h1>解決方法</h1>
 
-<%= form_with model: [@post,@solution] do |f| %>
-  <%= f.label :solution, "解決策" %>
-  <%= f.text_area :solution %>
-  <%= f.label :url, "参考URL" %>
-  <%= f.text_field :url %>
-  <%= f.submit "解決策を投稿する" %>
-<% end %>
+<%= render "form", post: @post, solution: @solution %>

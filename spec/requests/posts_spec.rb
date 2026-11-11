@@ -234,7 +234,7 @@ RSpec.describe "Posts", type: :request do
         post "/posts", params: post_params
       }.to change(Post, :count).by(1)
 
-      expect(response).to redirect_to(mypage_path)
+      expect(response).to redirect_to(posts_path)
       expect(Post.last.user_id).to eq(user.id)
     end
 

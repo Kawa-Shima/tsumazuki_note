@@ -1,5 +1,9 @@
-<h1>マイページ</h1>
-  <%= link_to "投稿する", new_post_path %>
-  <%= link_to "投稿一覧", posts_path %>
-  <%= current_user.email %>
+<h1 class="mb-3">マイページ</h1>
+
+<p>メールアドレス：<%= current_user.email %></p>
+
+<div class="d-flex gap-2 flex-wrap">
+  <%= link_to "投稿する", new_post_path, class: "btn btn-primary" %>
+  <%= link_to "投稿一覧", posts_path, class: "btn btn-outline-primary" %>
+</div>
  

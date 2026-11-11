@@ -1,30 +1,71 @@
-<h1>つまずき一覧</h1>
-<%= search_form_for @q, url: posts_path do |f| %>
-  <%= f.label :title_i_cont, "タイトル" %>
-  <%= f.text_field :title_i_cont %>
-  <%= f.label :content_i_cont, "内容" %>
-  <%= f.text_field :content_i_cont %>
+<div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+  <h1 class="mb-0">つまずき一覧</h1>
 
-  <%= f.label :category_eq, "カテゴリ" %>
-  <%= f.select :category_eq, Post.categories.map { |name, value| [name.humanize, value] }, { include_blank: "すべて" } %>
+  <%= link_to "投稿する", new_post_path,
+      class: "btn btn-primary text-nowrap" %>
+</div>
 
-  <%= f.label :tags_name_eq, "タグ" %>
-  <%= f.select :tags_name_eq, @tag_names, { include_blank: "すべて" } %>
+  <div class="border rounded p-2 mb-3">
+    <%= search_form_for @q, url: posts_path do |f| %>
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <%= f.label :title_i_cont, "タイトル", class: "mb-0 text-nowrap" %>
+        <%= f.text_field :title_i_cont, class: "form-control form-control-sm" %>
+      </div>
 
-  <%= f.label :status_eq, "ステータス" %>
-  <%= f.select :status_eq, [["未解決",0], ["解決済み",1]], { include_blank: "すべて" } %>
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <%= f.label :content_i_cont, "内容", class: "mb-0 text-nowrap" %>
+        <%= f.text_field :content_i_cont, class: "form-control form-control-sm" %>
+      </div>
 
-  <%= f.submit "検索" %>
-<% end %>
+    <div class="row g-2 mb-2">
+      <div class="col-md-4">
+        <div class="d-flex align-items-center gap-2">
+          <%= f.label :category_eq, "カテゴリ", class: "mb-0 text-nowrap" %>
+          <%= f.select :category_eq,
+            Post.categories.map { |name, value| [name.humanize, value] },
+            { include_blank: "すべて" },
+            { class: "form-select form-select-sm" } %>
+        </div>
+      </div>
+
+    <div class="col-md-4">
+      <div class="d-flex align-items-center gap-2">
+        <%= f.label :tags_name_eq, "タグ", class: "mb-0 text-nowrap" %>
+        <%= f.select :tags_name_eq, @tag_names,
+          { include_blank: "すべて" },
+          { class: "form-select form-select-sm" } %>
+      </div>
+    </div>
+
+     <div class="col-md-4">
+       <div class="d-flex align-items-center gap-2">
+        <%= f.label :status_eq, "ステータス", class: "mb-0 text-nowrap" %>
+        <%= f.select :status_eq, [["未解決", 0], ["解決済み", 1]],
+            { include_blank: "すべて" },
+            { class: "form-select form-select-sm" } %>
+        </div>
+      </div>
+    </div>
+
+      <%= f.submit "検索", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  
 
 
 <% if @posts.empty? %>
   <p>つまずきがありません。</p>
 <% else %>
   <% @posts.each do |post| %>
-   <p><%= link_to post.title, post_path(post) %></p>
-   <p><%= l(post.date, format: :slash) if post.date.present? %></p>
-   <p><%= t("enums.post.status.#{post.status}") %></p>
+    <div class="border rounded p-3 mb-3">
+       <p class="fw-bold">タイトル：<%= post.title %></p>
+       <p>
+         日付：<%= l(post.date, format: :slash) if post.date.present? %> 
+         　ステータス：<%= t("enums.post.status.#{post.status}") %>
+       </p>
+
+       <%= link_to "詳細を見る", post_path(post) %>
+     </div>
   <% end %>
 <% end %>
 

@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params.except(:status))
     if @post.save
-      redirect_to mypage_path, notice: "投稿が作成されました。"
+      redirect_to posts_path, notice: "投稿が作成されました。"
     else
       render :new, status: :unprocessable_entity
     end

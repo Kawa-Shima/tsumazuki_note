@@ -1,0 +1,14 @@
+<%= form_with model: [post, solution] do |f| %>
+  <div class="mb-3">
+    <%= f.label :solution, "解決策", class: "form-label" %>
+    <%= f.text_area :solution, class: "form-control", rows: 5 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :url, "参考URL", class: "form-label" %>
+    <%= f.text_field :url, class: "form-control" %>
+  </div>
+
+  <%= f.submit(solution.persisted? ? "解決策を更新する" : "解決策を投稿する",
+      class: "btn btn-primary") %>
+<% end %>

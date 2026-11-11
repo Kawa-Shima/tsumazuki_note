@@ -1,21 +1,33 @@
 <h1>つまずき詳細</h1>
-<p><%= @post.title %></p>
-<p><%= @post.content %></p>
-<p><%= @post.date %></p>
-<p><%= @post.category&.titleize %></p>
-
-<% @post.tags.each do |tag| %>
-  <p><%= tag.name %></p>
+<p class="fs-4 fw-bold">タイトル：<%= @post.title %></p>
+<p class="mb-4">内容：<%= @post.content %></p>
+<p>日付：<%= l(@post.date, format: :slash) if @post.date.present? %></p>
+<p>カテゴリ：<%= @post.category&.titleize %></p><% @post.tags.each do |tag| %>
+ <p>タグ：<%= tag.name %></p>
 <% end %>
 
-<% @post.solutions.each do |solution| %>
-  <p><%= solution.solution %></p>
-  <p><%= solution.url %></p>
-  <%= link_to "編集する", edit_post_solution_path(@post, solution) %>
-<% end %>
+<p>ステータス：<%= @post.unresolved? ? "未解決" : "解決済み" %></p>
 
-<p><%= @post.unresolved? ? "未解決" : "解決済み" %></p>
-<%= button_to(@post.unresolved? ? "解決済みにする" : "未解決にする", post_path(@post), method: :patch, params: { post: { status: @post.unresolved? ? "resolved" : "unresolved" } } ) %>
-<%= link_to "編集する", edit_post_path(@post) %>
-<%= link_to "解決策を投稿する", new_post_solution_path(@post) %>
-<%= button_to "削除する", post_path(@post), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
+<div class="d-flex gap-1 flex-wrap">
+<%= button_to(@post.unresolved? ? "解決済みにする" : "未解決にする", post_path(@post), class: "btn btn-outline-secondary", method: :patch, params: { post: { status: @post.unresolved? ? "resolved" : "unresolved" } } ) %>
+
+<%= link_to "編集する", edit_post_path(@post), class: "btn btn-outline-primary" %>
+
+<%= button_to "削除する", post_path(@post),
+    method: :delete,
+    class: "btn btn-outline-danger",
+    form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
+</div>
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-4 mb-3">
+  <h2 class="h4 mb-0">解決策</h2>
+  <%= link_to "解決策を投稿する", new_post_solution_path(@post), class: "btn btn-primary" %>
+</div>
+
+  <% @post.solutions.each do |solution| %>
+    <div class="border p-3 mb-3">
+      <p>解決策：<%= solution.solution %></p>
+      <p>参考URL：<%= solution.url %></p>
+    <%= link_to "編集する", edit_post_solution_path(@post, solution), class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>

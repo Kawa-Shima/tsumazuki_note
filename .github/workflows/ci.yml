@@ -49,6 +49,9 @@ jobs:
 
       - name: テスト用DBを準備
         run: bin/rails db:prepare
+      
+      - name: CSSをビルド
+        run: bin/rails dartsass:build
 
       - name: RSpecを実行
         run: bundle exec rspec

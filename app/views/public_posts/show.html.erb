@@ -1,0 +1,9 @@
+<p class="fs-4 fw-bold">タイトル：<%= @post.title %></p>
+<p class="mb-4">内容：<%= @post.content %></p>
+
+<% @post.solutions.each do |solution| %>
+    <div class="border p-3 mb-3">
+      <p>解決策：<%= solution.solution %></p>
+      <p>参考URL：<%= solution.url %></p>
+    </div>
+<% end %>

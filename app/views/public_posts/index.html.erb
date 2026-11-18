@@ -1,0 +1,8 @@
+<% @posts.each do |post| %>
+  <div class= "border rounded p-3 mb-3">
+  <p class="fw-bold">タイトル：<%= post.title %></p>
+
+  <%= link_to "詳細を見る", public_post_path(post) %>
+  </div>
+<% end %>
+  

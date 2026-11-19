@@ -38,5 +38,11 @@ RSpec.describe User, type: :model do
 
       expect(user.save).to be false
     end
+
+    it "ユーザー名が空だと保存できない" do
+      user = FactoryBot.build(:user, username: "")
+
+      expect(user.save).to be false
+    end
   end
 end

@@ -9,6 +9,7 @@ class SolutionsController < ApplicationController
   def create
     @post = current_user.posts.find(params[:post_id])
     @solution = @post.solutions.build(solution_params)
+    @solution.user = current_user
     if @solution.save
       redirect_to post_path(@post), notice: "解決策が投稿されました。"
     else

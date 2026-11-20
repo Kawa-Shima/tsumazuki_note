@@ -24,6 +24,7 @@ RSpec.describe "Solutions", type: :request do
 
       created_solution = Solution.last
       expect(created_solution.post_id).to eq(own_post.id)
+      expect(created_solution.user_id).to eq(owner.id)
       expect(created_solution.solution).to eq("設定を変更して解決した")
       expect(created_solution.url).to eq("https://example.com/reference")
       expect(response).to redirect_to(post_path(own_post))

@@ -28,6 +28,7 @@
     <div class="border p-3 mb-3">
       <p>解決策：<%= solution.solution %></p>
       <p>参考URL：<%= solution.url %></p>
+      <p>ユーザー名：<%= solution.user.username %></p>
     <%= link_to "編集する", edit_post_solution_path(@post, solution), class: "btn btn-outline-primary" %>
     </div>
   <% end %>

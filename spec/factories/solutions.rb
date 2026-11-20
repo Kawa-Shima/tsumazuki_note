@@ -3,5 +3,6 @@ FactoryBot.define do
     post { nil }
     solution { "MyText" }
     url { "MyString" }
+    association :user
   end
 end

@@ -337,7 +337,8 @@ RSpec.describe "Posts", type: :request do
         :post,
         user: owner,
         title: "元のタイトル",
-        content: "元の内容"
+        content: "元の内容",
+        is_public: true
       )
 
       sign_in other_user
@@ -375,11 +376,31 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
+    it "他ユーザーがステータス・公開範囲を変更できない" do
+      owner = FactoryBot.create(:user)
+      other_user = FactoryBot.create(:user)
+      post = FactoryBot.create(:post, user: owner, status: :unresolved, is_public: true)
+
+      sign_in other_user
+      patch "/posts/#{post.id}", params: {
+        post: {
+          status: :resolved,
+          is_public: false
+        }
+      }
+
+      expect(response).to have_http_status(:not_found)
+      post.reload
+      expect(post.status).to eq("unresolved")
+      expect(post.is_public).to eq(true)
+    end
+
+
   describe "DELETE /posts/:id" do
     it "他ユーザーの投稿を削除できない" do
       user1 = FactoryBot.create(:user)
       user2 = FactoryBot.create(:user)
-      post = FactoryBot.create(:post, user: user1)
+      post = FactoryBot.create(:post, user: user1, is_public: true)
 
       sign_in user2
       delete "/posts/#{post.id}"

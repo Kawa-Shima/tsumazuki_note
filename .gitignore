@@ -36,3 +36,6 @@
 /coverage/
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# データベースのバックアップ
+backup.dump

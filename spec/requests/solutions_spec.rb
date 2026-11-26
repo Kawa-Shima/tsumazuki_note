@@ -24,6 +24,7 @@ RSpec.describe "Solutions", type: :request do
 
       created_solution = Solution.last
       expect(created_solution.post_id).to eq(own_post.id)
+      expect(created_solution.user_id).to eq(owner.id)
       expect(created_solution.solution).to eq("設定を変更して解決した")
       expect(created_solution.url).to eq("https://example.com/reference")
       expect(response).to redirect_to(post_path(own_post))
@@ -41,7 +42,8 @@ RSpec.describe "Solutions", type: :request do
       expect(flash[:alert]).to eq("解決策の投稿に失敗しました。")
     end
 
-    it "他ユーザーの投稿には登録できない" do
+    it "他ユーザーの非公開投稿には登録できない" do
+      own_post.update!(is_public: false)
       sign_in other_user
 
       expect {
@@ -50,6 +52,19 @@ RSpec.describe "Solutions", type: :request do
 
       expect(response).to have_http_status(:not_found)
     end
+
+    it "他ユーザーの公開投稿には登録できる" do
+      own_post.update!(is_public: true)
+      sign_in other_user
+
+      expect {
+        post post_solutions_path(own_post), params: solution_params
+      }.to change(Solution, :count).by(1)
+
+      expect(Solution.last.user_id).to eq(other_user.id)
+      expect(response).to redirect_to(public_post_path(own_post))
+    end
+
 
     it "未ログインでは登録できない" do
       expect {
@@ -65,6 +80,7 @@ RSpec.describe "Solutions", type: :request do
       FactoryBot.create(
         :solution,
         post: own_post,
+        user: owner,
         solution: "元の解決策",
         url: "https://example.com/original"
       )
@@ -114,7 +130,19 @@ RSpec.describe "Solutions", type: :request do
       end
 
       it "他ユーザーの解決策を更新できない" do
+        own_post.update!(is_public: true)
         sign_in other_user
+        patch post_solution_path(own_post, saved_solution), params: solution_params
+
+        expect(response).to have_http_status(:not_found)
+        saved_solution.reload
+        expect(saved_solution.solution).to eq("元の解決策")
+        expect(saved_solution.url).to eq("https://example.com/original")
+      end
+
+      it "つまずきの投稿者でも他ユーザーの解決策を更新できない" do
+        saved_solution.update!(user: other_user)
+        sign_in owner
         patch post_solution_path(own_post, saved_solution), params: solution_params
 
         expect(response).to have_http_status(:not_found)
@@ -131,6 +159,20 @@ RSpec.describe "Solutions", type: :request do
         expect(saved_solution.solution).to eq("元の解決策")
         expect(saved_solution.url).to eq("https://example.com/original")
       end
+
+      it "投稿が非公開になると自分の解決策でも更新できない" do
+        own_post.update!(is_public: true)
+        saved_solution.update!(user: other_user)
+        own_post.update!(is_public: false)
+
+        sign_in other_user
+        patch post_solution_path(own_post, saved_solution), params: solution_params
+
+        expect(response).to have_http_status(:not_found)
+        saved_solution.reload
+        expect(saved_solution.solution).to eq("元の解決策")
+        expect(saved_solution.url).to eq("https://example.com/original")
+     end
     end
 
     describe "DELETE /posts/:post_id/solutions/:id" do
@@ -153,7 +195,20 @@ RSpec.describe "Solutions", type: :request do
       end
 
       it "他ユーザーの解決策を削除できない" do
+        own_post.update!(is_public: true)
         sign_in other_user
+
+        expect {
+          delete post_solution_path(own_post, saved_solution)
+        }.not_to change(Solution, :count)
+
+        expect(response).to have_http_status(:not_found)
+        expect(Solution.exists?(saved_solution.id)).to be true
+      end
+
+      it "つまずき投稿者でも他ユーザーの解決策を削除できない" do
+        saved_solution.update!(user: other_user)
+        sign_in owner
 
         expect {
           delete post_solution_path(own_post, saved_solution)
@@ -169,6 +224,21 @@ RSpec.describe "Solutions", type: :request do
         }.not_to change(Solution, :count)
 
         expect(response).to redirect_to(new_user_session_path)
+        expect(Solution.exists?(saved_solution.id)).to be true
+      end
+
+      it "投稿が非公開になると自分の解決策でも削除できない" do
+        own_post.update!(is_public: true)
+        saved_solution.update!(user: other_user)
+        own_post.update!(is_public: false)
+
+        sign_in other_user
+
+        expect {
+          delete post_solution_path(own_post, saved_solution)
+        }.not_to change(Solution, :count)
+
+        expect(response).to have_http_status(:not_found)
         expect(Solution.exists?(saved_solution.id)).to be true
       end
     end

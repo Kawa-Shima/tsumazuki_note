@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :solutions, only: [ :new, :create, :edit, :update, :destroy ]
   end
 
+  resources :public_posts, only: [ :index, :show ]
   resource :mypage, only: [ :show ]
   devise_for :users
   root "static_pages#top"

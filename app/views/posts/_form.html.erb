@@ -27,6 +27,12 @@
     <%= f.text_field :tag_names, class: "form-control" %>
   </div>
 
+  <div class='mb-3'>
+    <%= f.check_box :is_public, class: "form-check-input" %>
+    <%= f.label :is_public, "他のユーザーに公開する", class: "form-check-label" %>
+
+  </div>
+
   <%= f.submit(post.persisted? ? "更新する" : "投稿する",
       class: "btn btn-primary") %>
 <% end %>

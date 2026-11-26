@@ -13,6 +13,9 @@ ja:
         solution: 解決策
         url: 参考URL
       
+      user:
+        username: ユーザー名
+      
   enums:
     post:
       status:

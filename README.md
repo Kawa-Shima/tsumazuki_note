@@ -297,7 +297,7 @@ https://www.figma.com/design/iLLyhdbLIGSgPLEcKHNZVn/%E7%94%BB%E9%9D%A2%E9%81%B7%
 
 ## 12. ER図
 
-https://gyazo.com/ea49d4908fbda17dbfd8cce62c19ccfc
+https://gyazo.com/f7b28a5623fea5b8324035472887fe4a
 
  
 
